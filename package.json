@@ -1,9 +1,9 @@
 {
     "name": "zstate",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Minimalist state manager, thought to sustain a state based on a mutable object that scales according to nodes.",
-    "main": "./cjs/index.js",
-    "module": "./esm/index.js",
+    "main": "./cjs/zstate.js",
+    "module": "./zstate.js",
     "publishConfig": {
         "access": "public"
     },
