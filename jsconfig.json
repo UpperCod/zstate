@@ -6,7 +6,7 @@
       "checkJs": true
     },
     "include": [
-        "index.d.ts",
-        "src/**/*",
+        "types.d.ts",
+        "ztate.js",
     ]
 }

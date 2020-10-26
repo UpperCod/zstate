@@ -1,7 +1,7 @@
 {
-    "name": "pkg_name",
-    "version": "0.0.0",
-    "description": "Capture text fragments based on regular expressions that are executed for each line of the text",
+    "name": "zstate",
+    "version": "0.0.1",
+    "description": "Minimalist state manager, thought to sustain a state based on a mutable object that scales according to nodes.",
     "main": "./cjs/index.js",
     "module": "./esm/index.js",
     "publishConfig": {
@@ -11,18 +11,18 @@
         "build": "rollup -c",
         "dev": "rollup -c -w",
         "test": "ava",
-        "prepare": "npm run build && npm test"
+        "prepare": ""
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/UpperCod/pkg_name.git"
+        "url": "git+https://github.com/UpperCod/zstate.git"
     },
     "author": "UpperCod",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/UpperCod/pkg_name/issues"
+        "url": "https://github.com/UpperCod/zstate/issues"
     },
-    "homepage": "https://github.com/UpperCod/pkg_name#readme",
+    "homepage": "https://github.com/UpperCod/zstate#readme",
     "dependencies": {},
     "devDependencies": {
         "@rollup/plugin-node-resolve": "^8.1.0",
@@ -41,10 +41,8 @@
         ]
     },
     "exports": {
-        "./": {
-            "import": "./ems/",
-            "require": "./cjs/"
-        }
+        "import": "./zstate.js",
+        "require": "./cjs/zstate.js"
     },
     "prettier": {
         "tabWidth": 4,

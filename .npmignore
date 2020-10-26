@@ -1,3 +1,4 @@
-/node_modules
-/test
-/rollup.config.js
+*
+!/types.d.ts
+!/zstate.js
+!/cjs/*
