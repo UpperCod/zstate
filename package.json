@@ -11,7 +11,7 @@
         "build": "rollup -c",
         "dev": "rollup -c -w",
         "test": "ava",
-        "prepare": ""
+        "prepare": "npm run build && npm run test"
     },
     "repository": {
         "type": "git",
