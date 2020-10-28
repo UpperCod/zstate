@@ -4,38 +4,55 @@
  */
 export default function zstate(state = {}) {
     const _ref = {};
-    const _on = new Map();
+    const _on = new Set();
 
     state = load(state);
 
-    const emit = () => _on.forEach((ignore, callback) => callback(state));
+    const emit = () => _on.forEach((callback) => callback(state));
+
+    const assigns = (update) => {
+        for (const prop in update) {
+            if (update[prop] == null && !_ref[prop]) {
+                delete state[prop];
+            } else {
+                state[prop] = update[prop];
+            }
+        }
+    };
 
     const ctx = (prop, initialState = state[prop]) => {
         if (!_ref[prop]) {
             let prevent;
-            const refState = load(initialState, state[prop]);
-            _ref[prop] = zstate(refState);
-            _ref[prop].on(() => !prevent && emit());
+            _ref[prop] = zstate(load(initialState, state[prop]));
+            const off = _ref[prop].on(() => !prevent && emit());
             Object.defineProperty(state, prop, {
-                set(state) {
-                    prevent = true;
-                    _ref[prop].set(state);
-                    prevent = false;
-                    return refState;
+                set(nextState) {
+                    if (_ref[prop]) {
+                        if (nextState == null) {
+                            delete _ref[prop];
+                            delete state[prop];
+                            off();
+                        } else {
+                            prevent = true;
+                            _ref[prop].set(nextState);
+                            prevent = false;
+                            return _ref[prop].state;
+                        }
+                    }
                 },
                 get() {
-                    return refState;
+                    return _ref[prop] && _ref[prop].state;
                 },
                 enumerable: true,
+                configurable: true,
             });
         }
         return _ref[prop];
     };
 
-    ctx.set = (update) =>
-        Object.assign(state, load(update, state)) && (emit() || state);
+    ctx.set = (update) => !assigns(load(update, state)) && (emit() || state);
 
-    ctx.on = (callback) => _on.set(callback) && (() => _on.delete(callback));
+    ctx.on = (callback) => _on.add(callback) && (() => _on.delete(callback));
 
     ctx.state = state;
 

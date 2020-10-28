@@ -76,6 +76,8 @@ app.set({ any: "value" });
 
 Update current state, `set` does not replace current state, just merge.
 
+**If the property to update is defined as null or undefined, example `{any: null}`, it will be removed from the object. if this property is a node, its effects on the parent will be eliminated**.
+
 ### on
 
 ```js

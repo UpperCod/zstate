@@ -16,6 +16,10 @@ test("set", (t) => {
     set(() => ({ value: "any" }));
 
     t.deepEqual(state, { id: 101, value: "any" });
+
+    set({ id: null });
+
+    t.deepEqual(state, { value: "any" });
 });
 
 test("on", (t) => {
